@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up Form</title>
+
+    <!-- STYLE LINK -->
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+
+    <!-- FONT AWESOME CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="signup" style="background-image: url(./images/bac.png);">
+        <div class="signup-box">
+            <div class="image">
+                <img src="./images/signup-img.png" alt="Signup Image">
+            </div>
+
+            <form id="contactForm" onsubmit="handleSubmit(event)">
+                <h3>GET IN TOUCH</h3>
+                <p>Contact us and access exclusive work!</p>
+
+                <div class="inp">
+                    <input type="text" name="fullname" placeholder="Full Name" class="form-control" required>
+                </div>
+
+                <div class="inp">
+                    <input type="email" name="email" placeholder="Your Email" class="form-control" required>
+                </div>
+
+                <div class="inp">
+                    <input type="number" name="phone" placeholder="Phone Number" class="form-control" required>
+                </div>
+
+                <div class="inp">
+                    <!-- <input type="text" name="domain" placeholder="Domain you need us to work on" class="form-control" required> -->
+                    <select name="serviceOption" class="form-control" required>
+                        <option value="" disabled selected>Domain you need</option>
+                        <option value="frontend-without-uiux">Frontend without UI/UX design</option>
+                        <option value="frontend-with-uiux">Frontend with UI/UX design</option>
+                        <option value="mini-project">Mini Project</option>
+                        <option value="frontend-backend">Frontend + Backend</option>
+                        <option value="powerpoint-report">Powerpoint +Report</option>
+                        
+
+                    </select>
+                </div>
+
+                <button type="submit">Submit!</button>
+                <h4>By clicking on the above button, your details will be forwarded to us, and you will be contacted soon.</h4>
+            </form>
+        </div>
+    </div>
+
+    <!-- EmailJS Script -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init("Uy7Wq6mzb7zwbLn3s"); // Replace with your EmailJS public key
+        })();
+
+        // Form submission handler
+        const handleSubmit = (e) => {
+            e.preventDefault(); // Prevent form from reloading the page
+
+            // Send form data via EmailJS
+            emailjs.sendForm(
+                'service_7dfvwog', // Replace with your EmailJS service ID
+                'template_pij0a8v', // Replace with your EmailJS template ID
+                e.target,          // The form element
+                'Uy7Wq6mzb7zwbLn3s' // Replace with your EmailJS public key
+            )
+            .then((result) => {
+                console.log('Email sent successfully:', result.text);
+                alert('Message sent successfully! Thank you for contacting us.');
+                e.target.reset(); // Clear the form
+            })
+            .catch((error) => {
+                console.error('Error sending email:', error.text);
+                alert('Something went wrong. Please try again later.');
+            });
+        };
+    </script>
+</body>
+</html>
